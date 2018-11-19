@@ -45,6 +45,7 @@ class App extends Component {
     })
   }
 
+
   render() {
 
     const style = {
@@ -94,9 +95,36 @@ class App extends Component {
         {/* If show Persons == true, show the list */}
         {persons}
         {/* If show Persons == false, remain hidden */}
+
+        <br></br>
+        <hr></hr>
+        <br></br>
+
+        <ShowMany count={3} />
+
+        {getTestArray(5)}
+
       </div>
     );
   }
 }
+
+function ShowMany(params) {
+  let rows = [];
+  for (let i = 0; i < params.count; i++) {
+    rows.push(<div>Labas {i + 1}</div>)
+  }
+  return rows;
+}
+
+function getTestArray(params) {
+  let rows = [];
+  for (let i = 0; i < params; i++) {
+    rows.push(<div>{'Labas' + i}</div>)
+  }
+  return rows;
+}
+
+
 
 export default App;
