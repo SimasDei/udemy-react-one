@@ -9,9 +9,9 @@ class App extends Component {
   state = {
     username: 'SaiDei',
     persons: [
-      { name: 'Sai', age: 29 },
-      { name: 'Max', age: 28 },
-      { name: 'Stephanie', age: 26 }
+      { id: '1', name: 'Sai', age: 29 },
+      { id: '2', name: 'Max', age: 28 },
+      { id: '3', name: 'Stephanie', age: 26 }
     ],
     showPersons: false
   }
@@ -35,14 +35,21 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: event.target.value, age: 29 },
-        { name: 'Max', age: 28 },
-        { name: 'Stephanie', age: 26 },
-      ]
-    })
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons })
   }
 
 
@@ -66,6 +73,8 @@ class App extends Component {
               click={() => this.deletePersonHandler(index)}
               name={person.name}
               age={person.age}
+              key={person.id}
+              changed={(event) => this.nameChangedHandler(event, person.id)}
             />
           })}
         </div >
@@ -96,41 +105,9 @@ class App extends Component {
         {persons}
         {/* If show Persons == false, remain hidden */}
 
-        <br></br>
-        <hr></hr>
-        <br></br>
-
-        <ShowMany count={3} />
-
-        <br></br>
-        <hr></hr>
-        <br></br>
-
-        {getTestArray(5).map(element => {
-          return (<div>{element}</div>)
-        })}
-
       </div>
     );
   }
 }
-
-function ShowMany(params) {
-  let rows = [];
-  for (let i = 0; i < params.count; i++) {
-    rows.push(<div>Labas {i + 1}</div>)
-  }
-  return rows;
-}
-
-function getTestArray(params) {
-  let rows = [];
-  for (let i = 0; i < params; i++) {
-    rows.push(<div>{'Labas' + (i + 1)}</div>)
-  }
-  return rows;
-}
-
-
 
 export default App;
