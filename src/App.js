@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import UserInput from './UserInput/UserInput';
-import UserOutput from './UserOutput/UserOutput';
 import Validation from './Validation/Validation';
 import Char from './Char/Char';
 
@@ -75,9 +73,11 @@ class App extends Component {
   render() {
 
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
+      borderRadius: '5px',
       padding: '8px',
       cursor: 'pointer'
     };
@@ -98,6 +98,8 @@ class App extends Component {
           })}
         </div >
       );
+
+      style.backgroundColor = 'red';
     }
 
     // Assignment Two
@@ -108,19 +110,20 @@ class App extends Component {
         clicked={() => this.deleteCharHandler(index)} />
     });
 
+    // Styling lecture
+    let classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
+
     return (
       <div className="App" >
         <br></br>
 
-        <UserInput
-          changed={this.usernameChangedHandler} currentName={this.state.username} />
-        <UserOutput userName={this.state.username} />
-        <UserOutput userName={this.state.username} />
-        <UserOutput userName='Sai' />
-
-        <br></br>
-        <hr></hr>
-        <br></br>
+        <p className={classes.join(' ')}>I'm a React App!</p>
 
         <button
           style={style}
@@ -131,7 +134,7 @@ class App extends Component {
         {/* If show Persons == true, show the list */}
         {persons}
         {/* If show Persons == false, remain hidden */}
-
+        <br></br>
         <br></br>
         <hr></hr>
         <br></br>
@@ -146,10 +149,6 @@ class App extends Component {
 
         <Validation
           inputLength={this.state.userInput.length} />
-
-        <br></br>
-        <hr></hr>
-        <br></br>
 
         {charList}
 
