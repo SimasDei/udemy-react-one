@@ -3,10 +3,13 @@ import './App.css';
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
 import UserOutput from './UserOutput/UserOutput';
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
 
 class App extends Component {
 
   state = {
+    userInput: '',
     username: 'SaiDei',
     persons: [
       { id: '1', name: 'Sai', age: 29 },
@@ -52,6 +55,22 @@ class App extends Component {
     this.setState({ persons: persons })
   }
 
+  // Assignment Two Method
+
+  inputChangedHandler = (event) => {
+    this.setState({
+      userInput: event.target.value
+    })
+  }
+
+  deleteCharHandler = (index) => {
+    const text = this.state.userInput.split('');
+    text.splice(index, 1);
+    const updatedText = text.join('');
+
+    this.setState({ userInput: updatedText });
+  }
+
 
   render() {
 
@@ -81,6 +100,14 @@ class App extends Component {
       );
     }
 
+    // Assignment Two
+    const charList = this.state.userInput.split('').map((ch, index) => {
+      return <Char
+        character={ch}
+        key={index}
+        clicked={() => this.deleteCharHandler(index)} />
+    });
+
     return (
       <div className="App" >
         <br></br>
@@ -105,6 +132,30 @@ class App extends Component {
         {persons}
         {/* If show Persons == false, remain hidden */}
 
+        <br></br>
+        <hr></hr>
+        <br></br>
+
+        {/* Assignment */}
+
+        <input type="text"
+          onChange={this.inputChangedHandler}
+          value={this.state.userInput} />
+
+        <p>{this.state.userInput}</p>
+
+        <Validation
+          inputLength={this.state.userInput.length} />
+
+        <br></br>
+        <hr></hr>
+        <br></br>
+
+        {charList}
+
+        <br></br>
+        <hr></hr>
+        <br></br>
       </div>
     );
   }
