@@ -102,7 +102,13 @@ class App extends Component {
 
         <ShowMany count={3} />
 
-        {getTestArray(5)}
+        <br></br>
+        <hr></hr>
+        <br></br>
+
+        {getTestArray(5).map(element => {
+          return (<div>{element}</div>)
+        })}
 
       </div>
     );
@@ -120,7 +126,7 @@ function ShowMany(params) {
 function getTestArray(params) {
   let rows = [];
   for (let i = 0; i < params; i++) {
-    rows.push(<div>{'Labas' + i}</div>)
+    rows.push(<div>{'Labas' + (i + 1)}</div>)
   }
   return rows;
 }
